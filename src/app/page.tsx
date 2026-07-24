@@ -89,7 +89,7 @@ export default function Home() {
     fetchGameState(); // Lần lấy đầu tiên ngay khi load
     const interval = setInterval(() => {
       fetchGameState();
-    }, 2000); // Polling mỗi 2000ms (2 giây)
+    }, 1000); // Polling mỗi 1000ms (1 giây)
 
     return () => clearInterval(interval);
   }, []);
@@ -305,7 +305,7 @@ export default function Home() {
                     <ShieldAlert className="w-4 h-4" /> SUPER BOSS
                   </span>
                   <span className="text-xs text-slate-400 font-mono">
-                    Tự động cập nhật (2s)
+                    Tự động cập nhật (1s)
                   </span>
                 </div>
 
