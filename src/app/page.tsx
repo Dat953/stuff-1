@@ -42,6 +42,7 @@ export default function Home() {
   const [isBossShaking, setIsBossShaking] = useState<boolean>(false);
   const [damagePopups, setDamagePopups] = useState<DamagePopup[]>([]);
   const [isResetting, setIsResetting] = useState<boolean>(false);
+  const [winner, setWinner] = useState<string | null>(null);
 
   const confettiFiredRef = useRef<boolean>(false);
 
@@ -68,6 +69,7 @@ export default function Home() {
         setBossMaxHp(data.bossMaxHp);
         setPlayers(data.players || []);
         setLogs(data.logs || []);
+        setWinner(data.winner ?? null);
 
         // Nếu boss bị tiêu diệt và chưa bắn pháo hoa thì kích hoạt confetti
         if (data.bossHp === 0 && !confettiFiredRef.current) {
@@ -142,6 +144,7 @@ export default function Home() {
         if (data.success) {
           setBossHp(data.bossHp);
           setLogs(data.logs || []);
+          if (data.winner) setWinner(data.winner);
 
           // Thêm popup sát thương
           setDamagePopups((prev) => [
@@ -171,6 +174,7 @@ export default function Home() {
         const data = await res.json();
         if (data.success) {
           confettiFiredRef.current = false;
+          setWinner(null);
           fetchGameState();
         }
       }
@@ -493,9 +497,20 @@ export default function Home() {
                 CẢ LỚP CHIẾN THẮNG!
               </h2>
 
-              <p className="text-slate-300 text-sm mb-6 leading-relaxed">
+              <p className="text-slate-300 text-sm mb-4 leading-relaxed">
                 🎉 Tuyệt vời! Boss <span className="text-rose-400 font-bold">Chúa Tể Bài Tập</span> đã hoàn toàn bị tiêu diệt bởi sức mạnh đoàn kết của cả lớp!
               </p>
+
+              {/* Winner Highlight Banner */}
+              {winner && (
+                <div className="mb-6 bg-gradient-to-r from-amber-500/20 via-yellow-400/20 to-amber-500/20 border border-amber-400/50 rounded-2xl p-4">
+                  <p className="text-xs text-amber-400/80 uppercase font-bold tracking-widest mb-1">⚔️ Đòn Kết Liễu Cuối Cùng</p>
+                  <p className="text-2xl font-black text-amber-300">
+                    🏆 {winner}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">đã gọi kết thúc trận chiến này!</p>
+                </div>
+              )}
 
               <div className="space-y-3">
                 <button

@@ -7,6 +7,7 @@ export interface GameState {
   bossMaxHp: number;
   players: string[]; // Danh sách tên người chơi đang tham gia
   logs: string[];    // Danh sách 8 hành động gần nhất
+  winner: string | null; // Người đánh đòn kết liễu Boss
 }
 
 // Khởi tạo trạng thái mặc định ban đầu của trận đấu
@@ -15,6 +16,7 @@ const initialGameState: GameState = {
   bossMaxHp: 1000,
   players: [],
   logs: ["Trận đấu bắt đầu! Hãy nhập tên và bấm 'Tấn công' để tiêu diệt Boss!"],
+  winner: null,
 };
 
 // Sử dụng globalThis để giữ lại trạng thái khi Next.js hot-reload ở môi trường phát triển local
@@ -41,4 +43,5 @@ export function resetGame() {
   gameState.bossHp = gameState.bossMaxHp;
   gameState.players = [];
   gameState.logs = ["Trận đấu mới đã được khởi tạo! Cả lớp sẵn sàng chiến đấu!"];
+  gameState.winner = null;
 }

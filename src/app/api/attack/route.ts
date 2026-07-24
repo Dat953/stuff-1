@@ -31,6 +31,7 @@ export async function POST(request: Request) {
 
     // Thông báo nếu đây là đòn kết liễu
     if (gameState.bossHp === 0) {
+      gameState.winner = name; // Lưu tên người chiến thắng
       addLog(`🏆 ${name} đã tung đòn kết liễu! Cả lớp chiến thắng Boss! 🎉`);
     }
 
@@ -41,6 +42,7 @@ export async function POST(request: Request) {
       bossMaxHp: gameState.bossMaxHp,
       players: gameState.players,
       logs: gameState.logs,
+      winner: gameState.winner,
     });
   } catch (error) {
     return NextResponse.json(

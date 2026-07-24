@@ -13,6 +13,7 @@ export async function GET() {
       bossMaxHp: gameState.bossMaxHp,
       players: gameState.players,
       logs: gameState.logs,
+      winner: gameState.winner,
     });
   } catch (error) {
     return NextResponse.json(
